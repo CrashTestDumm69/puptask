@@ -1,21 +1,13 @@
 import 'package:hive_ce/hive.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:puptask/domain/models/task.dart';
-import 'package:puptask/utils/hive/hive_registrar.g.dart';
 
 class TaskStorageService {
   late final Box<Task> _taskBox;
 
   Future<void> init() async {
     try {
-      final path = await getApplicationSupportDirectory();
-    
-      Hive
-        ..init("${path.path}/boxes")
-        ..registerAdapters();
-
       _taskBox = await Hive.openBox<Task>('tasks');
     } catch (e) {
       rethrow;
