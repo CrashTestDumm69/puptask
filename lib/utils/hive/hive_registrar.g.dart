@@ -7,12 +7,14 @@ import 'package:puptask/utils/hive/hive_adapters.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
+    registerAdapter(SettingsAdapter());
     registerAdapter(TaskAdapter());
   }
 }
 
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
+    registerAdapter(SettingsAdapter());
     registerAdapter(TaskAdapter());
   }
 }

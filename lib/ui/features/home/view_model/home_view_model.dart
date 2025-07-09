@@ -18,7 +18,7 @@ class TaskDisplay {
 
   factory TaskDisplay.fromTask(Task task) {
     return TaskDisplay(
-      id: task.id,
+      id: task.key.toString(),
       name: task.name,
       description: task.description,
     );
@@ -44,7 +44,6 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
       }
       
       final tasks = _getTasks();
-
       emit(TasksLoadedState(tasks));
     });
 
@@ -62,7 +61,7 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
   }
 
   List<TaskDisplay> _getTasks() {
-    final tasks = _taskRepository.getTasks();
+    final tasks = _taskRepository.tasks;
     return tasks.map((task) => TaskDisplay.fromTask(task)).toList();
   }
 }

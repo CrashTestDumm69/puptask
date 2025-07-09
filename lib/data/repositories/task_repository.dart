@@ -4,6 +4,8 @@ import 'package:puptask/domain/models/task.dart';
 class TaskRepository {
   final TaskStorageService _taskStorageService;
 
+  List<Task> get tasks => _taskStorageService.tasks;
+
   TaskRepository({
     required TaskStorageService taskStorageService,
   }) : _taskStorageService = taskStorageService;
@@ -41,9 +43,5 @@ class TaskRepository {
     } catch (e) {
       rethrow;
     }
-  }
-
-  List<Task> getTasks() {
-    return _taskStorageService.getTasks();
   }
 }
