@@ -4,22 +4,28 @@ import 'package:puptask/domain/models/settings.dart';
 class SettingsRepository {
   final SettingsStorageService _storageService;
 
-  SettingsRepository(this._storageService);
+  SettingsRepository({
+    required SettingsStorageService storageService
+  }) : _storageService = storageService;
+
+  Settings get settings => _storageService.settings;
 
   Future<void> init() async {
-    await _storageService.init();
-  }
-
-  Future<void> changeTheme(ThemeType theme) async {
     try {
-      final settings = _storageService.getSettings();
-      await _storageService.updateSettings(settings.copyWith(theme: theme));
+      await _storageService.init();
     } catch (e) {
       rethrow;
     }
   }
 
-  Settings getSettings() {
-    return _storageService.getSettings();
+  Future<void> changeTheme(ThemeType theme) async {
+    try {
+      final settings = _storageService.settings;
+      if (settings.theme == theme) return;
+
+      await _storageService.updateSettings(settings.copyWith(theme: theme));
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -11,7 +11,11 @@ class TaskRepository {
   }) : _taskStorageService = taskStorageService;
 
   Future<void> init() async {
-    await _taskStorageService.init();
+    try {
+      await _taskStorageService.init();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> addTask({required String name, required String description}) async {

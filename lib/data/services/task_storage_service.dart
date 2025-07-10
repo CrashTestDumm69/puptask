@@ -6,12 +6,14 @@ import 'package:puptask/domain/models/task.dart';
 class TaskStorageService {
   late final Box<Task> _taskBox;
 
+  static const String taskBoxName = 'tasks';
+
   List<Task> _tasks = [];
   List<Task> get tasks => _tasks;
 
   Future<void> init() async {
     try {
-      _taskBox = await Hive.openBox<Task>('tasks');
+      _taskBox = await Hive.openBox<Task>(taskBoxName);
       _tasks = _getTasks();
     } catch (e) {
       rethrow;

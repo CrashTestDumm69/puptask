@@ -4,17 +4,25 @@ import 'package:puptask/domain/models/settings.dart';
 class SettingsStorageService {
   late final Box<Settings> _settingsBox;
 
+  static const String settingsBoxName = 'app_settings';
+  static const String settingsKey = 'user_settings';
+
   static final Settings defaultSettings = Settings(
     theme: ThemeType.system,
   );
 
+  Settings _settings = defaultSettings;
+  Settings get settings => _settings;
+
   Future<void> init() async {
     try {
-      _settingsBox = await Hive.openBox<Settings>('settings');
+      _settingsBox = await Hive.openBox<Settings>(settingsBoxName);
 
       if (_settingsBox.isEmpty) {
-        await _settingsBox.put('settings', defaultSettings);
+        await _settingsBox.put(settingsKey, defaultSettings);
       }
+
+      _settings = _settingsBox.get(settingsKey) ?? defaultSettings;
     } catch (e) {
       rethrow;
     }
@@ -22,17 +30,10 @@ class SettingsStorageService {
 
   Future<void> updateSettings(Settings settings) async {
     try {
-      await _settingsBox.put('settings', settings);
+      await _settingsBox.put(settingsKey, settings);
+      _settings = settings;
     } catch (e) {
       rethrow;
     }
-  }
-
-  Settings getSettings() {
-    final settings = _settingsBox.get('settings');
-    if (settings == null) {
-      return defaultSettings;
-    }
-    return settings;
   }
 }

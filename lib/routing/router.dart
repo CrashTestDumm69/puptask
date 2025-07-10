@@ -19,7 +19,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.settings,
       builder: (BuildContext context, GoRouterState state) {
-        return const SettingsScreen();
+        return SettingsScreen(viewModel: sl());
       },
     ),
   ],
