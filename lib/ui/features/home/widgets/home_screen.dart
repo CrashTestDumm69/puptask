@@ -34,14 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
-          return;
         }
-
-        if (state is TasksLoadedState) {
+        else if (state is TasksLoadedState) {
           setState(() {
             _tasks = state.tasks;
           });
-          return;
         }
       },
       builder: (context, state) {

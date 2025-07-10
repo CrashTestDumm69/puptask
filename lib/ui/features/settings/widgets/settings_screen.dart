@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puptask/ui/features/settings/view_model/settings_view_model.dart';
@@ -36,6 +37,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
           setState(() {
             _theme = state.theme;
           });
+          late final AdaptiveThemeMode themeMode;
+          switch (_theme) {
+            case "Light":
+              themeMode = AdaptiveThemeMode.light;
+              break;
+            case "Dark":
+              themeMode = AdaptiveThemeMode.dark;
+              break;
+            default:
+              themeMode = AdaptiveThemeMode.system;
+          }
+          AdaptiveTheme.of(context).setThemeMode(themeMode);
         }
       },
       builder: (context, state) {

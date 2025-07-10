@@ -1,4 +1,5 @@
 import 'package:hive_ce/hive.dart';
+
 import 'package:puptask/domain/models/settings.dart';
 
 class SettingsStorageService {

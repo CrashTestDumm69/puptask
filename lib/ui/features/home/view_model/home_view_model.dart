@@ -32,19 +32,20 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
     required TaskRepository taskRepository,
   }) : _taskRepository = taskRepository,
        super(HomeInitialState()) {
-    on<AddTaskEvent>((event, emit) {
+    on<AddTaskEvent>((event, emit) async {
       try {
-        _taskRepository.addTask(
+        await _taskRepository.addTask(
           name: event.taskName,
           description: event.taskDescription,
         );
+
+        final tasks = _getTasks();
+        emit(TasksLoadedState(tasks));
       } catch (e) {
         emit(HomeErrorState("Failed to add task: ${e.toString()}"));
         return;
       }
       
-      final tasks = _getTasks();
-      emit(TasksLoadedState(tasks));
     });
 
     on<LoadTasksEvent>((event, emit) {
@@ -52,11 +53,16 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
       emit(TasksLoadedState(tasks));
     });
 
-    on<DeleteTaskEvent>((event, emit) {
-      _taskRepository.deleteTask(event.taskId);
+    on<DeleteTaskEvent>((event, emit) async {
+      try {
+        await _taskRepository.deleteTask(event.taskId);
 
-      final tasks = _getTasks();
-      emit(TasksLoadedState(tasks));
+        final tasks = _getTasks();
+        emit(TasksLoadedState(tasks));
+      } catch (e) {
+        emit(HomeErrorState("Failed to delete task: ${e.toString()}"));
+        return;
+      }
     });
   }
 
