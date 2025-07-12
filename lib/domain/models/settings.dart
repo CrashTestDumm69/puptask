@@ -1,9 +1,10 @@
 import 'package:hive_ce/hive.dart';
 
 enum ThemeType {
+  system,
   light,
   dark,
-  system
+  midnight
 }
 
 extension ThemeDisplayNameExtension on ThemeType {
@@ -15,6 +16,8 @@ extension ThemeDisplayNameExtension on ThemeType {
         return 'Dark';
       case ThemeType.system:
         return 'System';
+      case ThemeType.midnight:
+        return 'Midnight';
     }
   }
 }

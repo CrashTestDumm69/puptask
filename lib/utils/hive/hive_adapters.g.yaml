@@ -19,7 +19,7 @@ types:
         index: 2
   ThemeType:
     typeId: 6
-    nextIndex: 3
+    nextIndex: 4
     fields:
       light:
         index: 0
@@ -27,3 +27,5 @@ types:
         index: 1
       system:
         index: 2
+      midnight:
+        index: 3

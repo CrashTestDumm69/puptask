@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeViewModel, HomeState>(
+    return BlocListener<HomeViewModel, HomeState>(
       bloc: widget.viewModel,
       listener: (context, state) {
         if (state is HomeErrorState) {
@@ -41,53 +41,50 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         }
       },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Today'),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  context.push(Routes.settings);
-                },
-              ),
-            ],
-          ),
-          body: Stack(
-            children: [
-              state is HomeInitialState
-              ? const Center(child: CircularProgressIndicator())
-              : _tasks.isEmpty
-                ? const Center(child: Text("No tasks"))
-                : ListView.builder(
-                  itemCount: _tasks.length,
-                  itemBuilder: (context, index) {
-                    final task = _tasks[index];
-                    return ListTile(
-                      title: Text(task.name),
-                      subtitle: Text(task.description),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          widget.viewModel.add(DeleteTaskEvent(task.id));
-                        },
-                      ),
-                    );
-                  },
-                ),
-              Positioned(
-                bottom: 16,
-                right: 16,
-                child: FloatingActionButton(
-                  onPressed: () => widget.viewModel.add(AddTaskEvent("New task", "Task description")),
-                  child: const Icon(Icons.add),
-                )
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Today'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                context.push(Routes.settings);
+              },
+            ),
+          ],
+        ),
+        body: Stack(
+          children: [
+            _tasks.isEmpty
+            ? const Center(child: Text("No tasks"))
+            : ListView.builder(
+              itemCount: _tasks.length,
+              itemBuilder: (context, index) {
+                final task = _tasks[index];
+                return ListTile(
+                  title: Text(task.name),
+                  subtitle: Text(task.description),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      widget.viewModel.add(DeleteTaskEvent(task.id));
+                    },
+                  ),
+                );
+              },
+            ),
+            Positioned(
+              bottom: 16,
+              right: 16,
+              child: FloatingActionButton(
+                elevation: 0,
+                onPressed: () => widget.viewModel.add(AddTaskEvent("New task", "Task description")),
+                child: const Icon(Icons.add),
               )
-            ],
-          )
-        );
-      }
+            )
+          ],
+        )
+      )
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:puptask/data/repositories/settings_repository.dart';
 import 'package:puptask/domain/models/settings.dart';
 
 import 'package:puptask/routing/router.dart';
+import 'package:puptask/ui/core/custom_themes.dart';
 import 'package:puptask/utils/hive/hive_registrar.g.dart';
 import 'package:puptask/utils/injection_container.dart';
 
@@ -28,12 +29,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late final AdaptiveThemeMode themeMode;
-    final themeType = sl<SettingsRepository>().settings.theme.displayName;
+    final themeType = sl<SettingsRepository>().settings.theme;
     switch (themeType) {
-      case "Light":
+      case ThemeType.light:
         themeMode = AdaptiveThemeMode.light;
         break;
-      case "Dark":
+      case ThemeType.dark:
+      case ThemeType.midnight:
         themeMode = AdaptiveThemeMode.dark;
         break;
       default:
@@ -41,8 +43,8 @@ class MyApp extends StatelessWidget {
     }
 
     return AdaptiveTheme(
-      light: ThemeData.light(useMaterial3: true),
-      dark: ThemeData.dark(useMaterial3: true),
+      light: CustomThemes.lightTheme,
+      dark: themeType == ThemeType.midnight ? CustomThemes.midnightTheme : CustomThemes.darkTheme,
       initial: themeMode,
       builder: (theme, darkTheme) {
         return MaterialApp.router(

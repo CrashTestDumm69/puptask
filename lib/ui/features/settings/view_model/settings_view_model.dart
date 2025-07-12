@@ -8,14 +8,14 @@ part 'settings_state.dart';
 class SettingsViewModel extends Bloc<SettingsEvent, SettingsState> {
   final SettingsRepository _settingsRepository;
 
-  List<String> get themes => ThemeType.values.map((theme) => theme.displayName).toList();
-  String get currentTheme => _settingsRepository.settings.theme.displayName;
+  List<String> get themes => ["System", "Light", "Dark", "Midnight"];
+  ThemeType get currentTheme => _settingsRepository.settings.theme;
 
   SettingsViewModel({required SettingsRepository settingsRepository})
       : _settingsRepository = settingsRepository,
         super(SettingsInitialState()) {
     on<LoadSettingsEvent>((event, emit) {
-      emit(SettingsLoadedState(theme: currentTheme));
+      emit(SettingsLoadedState(theme: currentTheme.displayName));
     });
 
     on<ChangeThemeEvent>((event, emit) async {
@@ -25,7 +25,7 @@ class SettingsViewModel extends Bloc<SettingsEvent, SettingsState> {
           orElse: () => ThemeType.system,
         );
         await _settingsRepository.changeTheme(selectedTheme);
-        emit(SettingsLoadedState(theme: currentTheme));
+        emit(SettingsLoadedState(theme: currentTheme.displayName));
       } catch (e) {
         emit(SettingsErrorState(message: "Failed to update setting: ${e.toString()}"));
       }

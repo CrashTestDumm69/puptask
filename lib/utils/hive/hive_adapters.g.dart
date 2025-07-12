@@ -85,6 +85,8 @@ class ThemeTypeAdapter extends TypeAdapter<ThemeType> {
         return ThemeType.dark;
       case 2:
         return ThemeType.system;
+      case 3:
+        return ThemeType.midnight;
       default:
         return ThemeType.light;
     }
@@ -99,6 +101,8 @@ class ThemeTypeAdapter extends TypeAdapter<ThemeType> {
         writer.writeByte(1);
       case ThemeType.system:
         writer.writeByte(2);
+      case ThemeType.midnight:
+        writer.writeByte(3);
     }
   }
 

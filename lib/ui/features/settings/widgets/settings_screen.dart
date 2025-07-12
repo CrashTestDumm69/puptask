@@ -1,6 +1,10 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:puptask/ui/core/custom_themes.dart';
 import 'package:puptask/ui/features/settings/view_model/settings_view_model.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -25,7 +29,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SettingsViewModel, SettingsState>(
+    return BlocListener<SettingsViewModel, SettingsState>(
       bloc: widget.viewModel,
       listener: (context, state) {
         if (state is SettingsErrorState) {
@@ -37,51 +41,49 @@ class _SettingsScreenState extends State<SettingsScreen> {
           setState(() {
             _theme = state.theme;
           });
-          late final AdaptiveThemeMode themeMode;
           switch (_theme) {
             case "Light":
-              themeMode = AdaptiveThemeMode.light;
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.darkTheme, notify: false);
+              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.light);
               break;
             case "Dark":
-              themeMode = AdaptiveThemeMode.dark;
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.darkTheme, notify: false);
+              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.dark);
+              break;
+            case "Midnight":
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.midnightTheme, notify: false);
+              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.dark);
               break;
             default:
-              themeMode = AdaptiveThemeMode.system;
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.darkTheme, notify: false);
+              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.system);
           }
-          AdaptiveTheme.of(context).setThemeMode(themeMode);
         }
       },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Settings Screen'),
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ListTile(
-                title: const Text("Theme"),
-                subtitle: Text("Set the theme of the application"),
-                trailing: DropdownButton<String>(
-                  value: _theme,
-                  items: widget.viewModel.themes.map((theme) {
-                    return DropdownMenuItem<String>(
-                      value: theme,
-                      child: Text(theme),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    if (newValue != null) {
-                      widget.viewModel.add(ChangeThemeEvent(value: newValue));
-                    }
-                  },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Settings Screen'),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ListTile(
+              title: const Text("Theme"),
+              subtitle: Text("Set the theme of the application"),
+              trailing: CupertinoSlidingSegmentedControl<String>(
+                groupValue: _theme,
+                children: Map<String, Widget>.fromEntries(
+                  widget.viewModel.themes.map((theme) => MapEntry(theme, Text(theme)))
                 ),
-              ),
-            ],
-          )
-        );
-      }
+                onValueChanged: (theme) {
+                  if (theme != null) widget.viewModel.add(ChangeThemeEvent(value: theme));
+                }
+              )
+            ),
+          ],
+        )
+      )
     );
   }
 }
