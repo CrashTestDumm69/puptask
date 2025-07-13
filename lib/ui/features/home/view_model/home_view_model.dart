@@ -34,10 +34,7 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
        super(HomeInitialState()) {
     on<AddTaskEvent>((event, emit) async {
       try {
-        await _taskRepository.addTask(
-          name: event.taskName,
-          description: event.taskDescription,
-        );
+        await _taskRepository.addTask(Task.fromJson(event.taskDetails));
 
         final tasks = _getTasks();
         emit(TasksLoadedState(tasks));

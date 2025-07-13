@@ -4,6 +4,7 @@ import 'package:puptask/domain/models/settings.dart';
 import 'package:puptask/domain/models/task.dart';
 
 @GenerateAdapters([
+  AdapterSpec<Days>(),
   AdapterSpec<Task>(),
   AdapterSpec<ThemeType>(),
   AdapterSpec<Settings>()

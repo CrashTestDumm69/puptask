@@ -79,10 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: FloatingActionButton(
                 elevation: 0,
                 onPressed: () async {
-                  final result = await context.push<Map<String, String>>(Routes.createTask);
-                  if (result != null && result["name"] != null && result["description"] != null) {
-                    widget.viewModel.add(AddTaskEvent(result["name"]!, result["description"]!));
-                  }
+                  final result = await context.push<Map<String, dynamic>>(Routes.createTask);
+                  if (result != null) widget.viewModel.add(AddTaskEvent(result));
                 },
                 child: const Icon(Icons.add),
               )

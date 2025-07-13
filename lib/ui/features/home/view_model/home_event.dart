@@ -3,10 +3,9 @@ part of 'home_view_model.dart';
 abstract class HomeEvent {}
 
 class AddTaskEvent extends HomeEvent {
-  final String taskName;
-  final String taskDescription;
+  final Map<String, dynamic> taskDetails;
 
-  AddTaskEvent(this.taskName, this.taskDescription);
+  AddTaskEvent(this.taskDetails);
 }
 
 class LoadTasksEvent extends HomeEvent {}

@@ -28,12 +28,7 @@ class TaskStorageService {
     return task;
   }
 
-  Future<void> addTask({required String name, required String description}) async {
-    final task = Task(
-      name: name,
-      description: description,
-    );
-
+  Future<void> addTask(Task task) async {
     final id = const Uuid().v4();
 
     await _taskBox.put(id, task);
