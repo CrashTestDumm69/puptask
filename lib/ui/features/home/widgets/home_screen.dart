@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       widget.viewModel.add(LoadTasksEvent());
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeViewModel, HomeState>(
@@ -78,7 +78,12 @@ class _HomeScreenState extends State<HomeScreen> {
               right: 16,
               child: FloatingActionButton(
                 elevation: 0,
-                onPressed: () => widget.viewModel.add(AddTaskEvent("New task", "Task description")),
+                onPressed: () async {
+                  final result = await context.push<Map<String, String>>(Routes.createTask);
+                  if (result != null && result["name"] != null && result["description"] != null) {
+                    widget.viewModel.add(AddTaskEvent(result["name"]!, result["description"]!));
+                  }
+                },
                 child: const Icon(Icons.add),
               )
             )

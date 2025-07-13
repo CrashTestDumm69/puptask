@@ -43,19 +43,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
           });
           switch (_theme) {
             case "Light":
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.darkTheme, notify: false);
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.dark(), notify: false);
               AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.light);
               break;
             case "Dark":
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.darkTheme, notify: false);
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.dark(), notify: false);
               AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.dark);
               break;
             case "Midnight":
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.midnightTheme, notify: false);
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.light(), notify: false);
               AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.dark);
               break;
             default:
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.lightTheme, dark: CustomThemes.darkTheme, notify: false);
+              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.dark(), notify: false);
               AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.system);
           }
         }

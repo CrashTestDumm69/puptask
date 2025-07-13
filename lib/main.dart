@@ -26,8 +26,10 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    CustomThemes.createTextTheme(context, "Roboto Slab", "Roboto Slab");
     late final AdaptiveThemeMode themeMode;
     final themeType = sl<SettingsRepository>().settings.theme;
     switch (themeType) {
@@ -43,8 +45,8 @@ class MyApp extends StatelessWidget {
     }
 
     return AdaptiveTheme(
-      light: CustomThemes.lightTheme,
-      dark: themeType == ThemeType.midnight ? CustomThemes.midnightTheme : CustomThemes.darkTheme,
+      light: CustomThemes.light(),
+      dark: themeType == ThemeType.midnight ? CustomThemes.light() : CustomThemes.dark(),
       initial: themeMode,
       builder: (theme, darkTheme) {
         return MaterialApp.router(
