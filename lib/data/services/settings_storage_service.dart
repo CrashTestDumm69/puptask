@@ -8,6 +8,8 @@ class SettingsStorageService {
   static const String settingsBoxName = 'app_settings';
   static const String settingsKey = 'user_settings';
 
+  Box<Settings> get settingsBox => _settingsBox;
+
   static final Settings defaultSettings = Settings(
     theme: ThemeType.system,
   );

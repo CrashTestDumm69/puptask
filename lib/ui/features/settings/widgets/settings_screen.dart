@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:puptask/ui/core/custom_themes.dart';
 import 'package:puptask/ui/features/settings/view_model/settings_view_model.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -41,23 +39,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           setState(() {
             _theme = state.theme;
           });
-          switch (_theme) {
-            case "Light":
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.dark(), notify: false);
-              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.light);
-              break;
-            case "Dark":
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.dark(), notify: false);
-              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.dark);
-              break;
-            case "Midnight":
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.light(), notify: false);
-              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.dark);
-              break;
-            default:
-              AdaptiveTheme.of(context).setTheme(light: CustomThemes.light(), dark: CustomThemes.dark(), notify: false);
-              AdaptiveTheme.of(context).setThemeMode(AdaptiveThemeMode.system);
-          }
         }
       },
       child: Scaffold(

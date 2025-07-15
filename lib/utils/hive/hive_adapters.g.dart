@@ -76,10 +76,10 @@ class TaskAdapter extends TypeAdapter<Task> {
     return Task(
       name: fields[0] as String,
       description: fields[1] as String,
-      repeat: fields[2] as bool,
+      completed: fields[6] as bool,
       repeatDays: (fields[3] as List?)?.cast<Days>(),
-      repeatTimes: (fields[4] as List?)?.cast<DateTime>(),
-      dueDates: (fields[5] as List?)?.cast<DateTime>(),
+      reminderTime: fields[7] as Duration?,
+      dueDate: fields[8] as DateTime?,
     );
   }
 
@@ -91,14 +91,14 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.description)
-      ..writeByte(2)
-      ..write(obj.repeat)
       ..writeByte(3)
       ..write(obj.repeatDays)
-      ..writeByte(4)
-      ..write(obj.repeatTimes)
-      ..writeByte(5)
-      ..write(obj.dueDates);
+      ..writeByte(6)
+      ..write(obj.completed)
+      ..writeByte(7)
+      ..write(obj.reminderTime)
+      ..writeByte(8)
+      ..write(obj.dueDate);
   }
 
   @override

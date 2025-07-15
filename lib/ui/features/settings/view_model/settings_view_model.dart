@@ -9,7 +9,7 @@ class SettingsViewModel extends Bloc<SettingsEvent, SettingsState> {
   final SettingsRepository _settingsRepository;
 
   List<String> get themes => ["System", "Light", "Dark", "Midnight"];
-  ThemeType get currentTheme => _settingsRepository.settings.theme;
+  ThemeType get currentTheme => _settingsRepository.currentTheme;
 
   SettingsViewModel({required SettingsRepository settingsRepository})
       : _settingsRepository = settingsRepository,

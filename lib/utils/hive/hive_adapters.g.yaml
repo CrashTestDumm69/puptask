@@ -23,20 +23,20 @@ types:
         index: 6
   Task:
     typeId: 1
-    nextIndex: 6
+    nextIndex: 9
     fields:
       name:
         index: 0
       description:
         index: 1
-      repeat:
-        index: 2
       repeatDays:
         index: 3
-      repeatTimes:
-        index: 4
-      dueDates:
-        index: 5
+      completed:
+        index: 6
+      reminderTime:
+        index: 7
+      dueDate:
+        index: 8
   ThemeType:
     typeId: 2
     nextIndex: 4

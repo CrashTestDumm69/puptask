@@ -17,18 +17,18 @@ enum Days {
 class Task extends HiveObject {
   String name;
   String description;
-  bool repeat;
+  bool completed;
   List<Days>? repeatDays;
-  List<DateTime>? repeatTimes;
-  List<DateTime>? dueDates;
+  Duration? reminderTime;
+  DateTime? dueDate;
 
   Task({
     required this.name,
     required this.description,
-    required this.repeat,
+    required this.completed,
     this.repeatDays,
-    this.repeatTimes,
-    this.dueDates
+    this.reminderTime,
+    this.dueDate
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
