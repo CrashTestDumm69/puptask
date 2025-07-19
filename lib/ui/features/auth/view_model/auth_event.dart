@@ -2,21 +2,21 @@ part of 'auth_view_model.dart';
 
 abstract class AuthEvent {}
 
-class SignUpEvent extends AuthEvent {
+class AuthSignUp extends AuthEvent {
   final String email;
   final String password;
 
-  SignUpEvent({
+  AuthSignUp({
     required this.email,
     required this.password
   });
 }
 
-class LogInEvent extends AuthEvent {
+class AuthLogIn extends AuthEvent {
   final String email;
   final String password;
 
-  LogInEvent({
+  AuthLogIn({
     required this.email,
     required this.password
   });

@@ -10,34 +10,47 @@ class AuthViewModel extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepo;
 
   AuthViewModel({required AuthRepository authRepo})
-      : _authRepo = authRepo, super(AuthInitial()) {
-    on<SignUpEvent>(_onSignUpRequested);
-    on<LogInEvent>(_onLogInRequested);
+    : _authRepo = authRepo,
+      super(AuthInitial()) {
+    on<AuthSignUp>(_onSignUpRequested);
+    on<AuthLogIn>(_onLogInRequested);
   }
 
-  Future<void> _onSignUpRequested(SignUpEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onSignUpRequested(
+    AuthSignUp event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
     try {
-      final user = await _authRepo.signUp(
-        email: event.email, 
-        password: event.password,
-      );
-      if (user != null) emit(AuthAuthenticated(user));
+      await _authRepo.signUp(email: event.email, password: event.password);
     } catch (e) {
       emit(AuthError(e.toString()));
     }
+
+    final user = _authRepo.getCurrentUser();
+    if (user != null) {
+      emit(AuthAuthenticated(user: user));
+    } else {
+      emit(AuthError("Logging in failed"));
+    }
   }
 
-  Future<void> _onLogInRequested(LogInEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onLogInRequested(
+    AuthLogIn event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
     try {
-      final user = await _authRepo.logIn(
-        email: event.email, 
-        password: event.password,
-      );
-      if (user != null) emit(AuthAuthenticated(user));
+      await _authRepo.logIn(email: event.email, password: event.password);
     } catch (e) {
       emit(AuthError(e.toString()));
+    }
+
+    final user = _authRepo.getCurrentUser();
+    if (user != null) {
+      emit(AuthAuthenticated(user: user));
+    } else {
+      emit(AuthError("Logging in failed"));
     }
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:puptask/routing/router.dart';
 
 import 'package:puptask/ui/features/settings/view_model/settings_view_model.dart';
 
@@ -48,12 +50,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               ListTile(
+                title: const Text("Profile"),
+                onTap: () => context.push(Routes.profile),
+                trailing: Icon(Icons.keyboard_arrow_right_outlined),
+              ),
+              ListTile(
                 title: const Text("Theme"),
-                subtitle: Text("Set the theme of the application"),
                 trailing: CupertinoSlidingSegmentedControl<String>(
+                  proportionalWidth: true,
                   groupValue: _theme,
                   children: Map<String, Widget>.fromEntries(
                     widget.viewModel.themes.map((theme) => MapEntry(theme, Text(theme)))
@@ -62,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     if (theme != null) widget.viewModel.add(ChangeThemeEvent(value: theme));
                   }
                 )
-              ),
+              )
             ],
           ),
         )

@@ -7,6 +7,7 @@ import 'package:puptask/data/services/settings_storage_service.dart';
 import 'package:puptask/data/services/task_storage_service.dart';
 import 'package:puptask/ui/features/auth/view_model/auth_view_model.dart';
 import 'package:puptask/ui/features/home/view_model/home_view_model.dart';
+import 'package:puptask/ui/features/profile/view_model/profile_view_model.dart';
 import 'package:puptask/ui/features/puptask/view_model/puptask_view_model.dart';
 import 'package:puptask/ui/features/settings/view_model/settings_view_model.dart';
 
@@ -27,4 +28,6 @@ Future<void> setUpServices() async {
   sl.registerSingleton(FirebaseAuthService());
   sl.registerSingleton(AuthRepository(authService: sl()));
   sl.registerSingleton(AuthViewModel(authRepo: sl()));
+
+  sl.registerSingleton(ProfileViewModel(authRepository: sl()));
 }

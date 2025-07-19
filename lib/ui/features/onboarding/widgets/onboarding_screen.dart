@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
 
+import 'package:puptask/data/repositories/settings_repository.dart';
 import 'package:puptask/routing/router.dart';
+import 'package:puptask/utils/injection_container.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -54,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(icon, size: 120, color: Colors.blue),
+        Icon(icon, size: 120),
         Text(title),
         Text(description, textAlign: TextAlign.center),
       ],
@@ -65,17 +68,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(Icons.cloud_sync, size: 120, color: Colors.blue),
+        const Icon(Icons.cloud_sync, size: 120),
         const Text("Sync with the Cloud?"),
         const Text("Log in to sync your tasks across devices", textAlign: TextAlign.center),
         ElevatedButton(
           onPressed: () {
+            sl<SettingsRepository>().onboardedApp();
             context.go(Routes.auth);
           },
           child: const Text("Log In"),
         ),
         TextButton(
           onPressed: () {
+            sl<SettingsRepository>().onboardedApp();
             context.go(Routes.home);
           },
           child: const Text("Continue without Login"),

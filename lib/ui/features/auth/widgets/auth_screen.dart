@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:puptask/routing/router.dart';
 
 import 'package:puptask/ui/features/auth/view_model/auth_view_model.dart';
 
@@ -15,6 +17,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isSignUp = false;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -25,11 +28,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void _submit() {
     final email = _emailController.text;
-    final pw = _passwordController.text;
+    final password = _passwordController.text;
 
     final passwordRegex = RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~_]).{6,}$');
 
-    if (!passwordRegex.hasMatch(pw)) {
+    if (!passwordRegex.hasMatch(password)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Password requirements not met. Password must have at least 1 uppercase letter, 1 number and 1 special character')),
       );
@@ -37,9 +40,9 @@ class _AuthScreenState extends State<AuthScreen> {
     }
 
     if (_isSignUp) {
-      widget.viewModel.add(SignUpEvent(email: email, password: pw));
+      widget.viewModel.add(AuthSignUp(email: email, password: password));
     } else {
-      widget.viewModel.add(LogInEvent(email: email, password: pw));
+      widget.viewModel.add(AuthLogIn(email: email, password: password));
     }
   }
 
@@ -50,52 +53,59 @@ class _AuthScreenState extends State<AuthScreen> {
         title: Text(_isSignUp ? 'Sign Up' : 'Log In'),
       ),
       body: SafeArea(
-        child: BlocConsumer<AuthViewModel, AuthState>(
+        child: BlocListener<AuthViewModel, AuthState>(
           bloc: widget.viewModel,
           listener: (context, state) {
             if (state is AuthAuthenticated) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Welcome, ${state.user.email}!')),
-              );
+              setState(() {
+                _isLoading = false;
+              });
+
+              context.go(Routes.home);
             } else if (state is AuthError) {
+              setState(() {
+                _isLoading = false;
+              });
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
+            } else if (state is AuthLoading) {
+              setState(() {
+                _isLoading = true;
+              });
             }
           },
-          builder: (context, state) {
-            final isLoading = state is AuthLoading;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                TextField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                ),
-                ElevatedButton(
-                  onPressed: isLoading ? null : _submit,
-                  child: isLoading
-                    ? const CircularProgressIndicator(
-                        color: Colors.white)
-                    : Text(_isSignUp ? 'Sign Up' : 'Log In'),
-                ),
-                TextButton(
-                  onPressed: isLoading 
-                      ? null 
-                      : () => setState(() => _isSignUp = !_isSignUp),
-                  child: Text(_isSignUp
-                      ? 'Already have an account? Log In'
-                      : 'New to PupTask? Sign Up'),
-                ),
-              ],
-            );
-          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
+              ),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _submit,
+                child: _isLoading
+                  ? const CircularProgressIndicator(
+                      color: Colors.white)
+                  : Text(_isSignUp ? 'Sign Up' : 'Log In'),
+              ),
+              TextButton(
+                onPressed: _isLoading 
+                    ? null 
+                    : () => setState(() => _isSignUp = !_isSignUp),
+                child: Text(_isSignUp
+                    ? 'Already have an account? Log In'
+                    : 'New to PupTask? Sign Up'),
+              ),
+            ],
+          )
         ),
       ),
     );
