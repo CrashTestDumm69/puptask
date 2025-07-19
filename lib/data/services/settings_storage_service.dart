@@ -12,6 +12,7 @@ class SettingsStorageService {
 
   static final Settings defaultSettings = Settings(
     theme: ThemeType.system,
+    isOnboarded: false
   );
 
   Settings _settings = defaultSettings;

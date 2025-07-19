@@ -45,24 +45,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
         appBar: AppBar(
           title: const Text('Settings Screen'),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ListTile(
-              title: const Text("Theme"),
-              subtitle: Text("Set the theme of the application"),
-              trailing: CupertinoSlidingSegmentedControl<String>(
-                groupValue: _theme,
-                children: Map<String, Widget>.fromEntries(
-                  widget.viewModel.themes.map((theme) => MapEntry(theme, Text(theme)))
-                ),
-                onValueChanged: (theme) {
-                  if (theme != null) widget.viewModel.add(ChangeThemeEvent(value: theme));
-                }
-              )
-            ),
-          ],
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ListTile(
+                title: const Text("Theme"),
+                subtitle: Text("Set the theme of the application"),
+                trailing: CupertinoSlidingSegmentedControl<String>(
+                  groupValue: _theme,
+                  children: Map<String, Widget>.fromEntries(
+                    widget.viewModel.themes.map((theme) => MapEntry(theme, Text(theme)))
+                  ),
+                  onValueChanged: (theme) {
+                    if (theme != null) widget.viewModel.add(ChangeThemeEvent(value: theme));
+                  }
+                )
+              ),
+            ],
+          ),
         )
       )
     );

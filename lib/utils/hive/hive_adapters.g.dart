@@ -167,15 +167,20 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Settings(theme: fields[0] as ThemeType);
+    return Settings(
+      theme: fields[0] as ThemeType,
+      isOnboarded: fields[1] as bool,
+    );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.theme);
+      ..write(obj.theme)
+      ..writeByte(1)
+      ..write(obj.isOnboarded);
   }
 
   @override

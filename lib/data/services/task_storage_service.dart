@@ -1,7 +1,7 @@
 import 'package:hive_ce/hive.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:puptask/domain/models/task.dart';
+import 'package:puptask/domain/models/task/task.dart';
 
 class TaskStorageService {
   late final Box<Task> _taskBox;

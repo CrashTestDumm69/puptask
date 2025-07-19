@@ -1,4 +1,4 @@
-package com.example.puptask
+package com.CrashTestDummy.puptask
 
 import io.flutter.embedding.android.FlutterActivity
 

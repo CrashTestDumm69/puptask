@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puptask/data/repositories/task_repository.dart';
-import 'package:puptask/domain/models/task.dart';
+import 'package:puptask/domain/models/task/task.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

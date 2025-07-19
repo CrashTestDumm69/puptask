@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "861724315726",
+    "project_id": "puptask",
+    "storage_bucket": "puptask.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861724315726:android:0f43b3244a04166524731f",
+        "android_client_info": {
+          "package_name": "com.CrashTestDummy.puptask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXQLG0N0mz5IUJsYIlmNAzCSVNJnuw4tY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861724315726:android:9e1881a00c221b6a24731f",
+        "android_client_info": {
+          "package_name": "com.example.puptask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXQLG0N0mz5IUJsYIlmNAzCSVNJnuw4tY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

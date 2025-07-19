@@ -13,6 +13,7 @@ class SettingsRepository {
 
   Stream<ThemeType> get themeStream => _themeStreamController.stream;
   ThemeType get currentTheme => _storageService.settings.theme;
+  bool get isOnboarded => _storageService.settings.isOnboarded;
 
   Future<void> init() async {
     try {
@@ -29,6 +30,15 @@ class SettingsRepository {
 
       await _storageService.updateSettings(settings.copyWith(theme: theme));
       _themeStreamController.add(theme);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> onboardedApp() async {
+    try {
+      final settings = _storageService.settings;
+      await _storageService.updateSettings(settings.copyWith(isOnboarded: true));
     } catch (e) {
       rethrow;
     }

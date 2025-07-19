@@ -53,39 +53,41 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        body: Stack(
-          children: [
-            _tasks.isEmpty
-            ? const Center(child: Text("No tasks"))
-            : ListView.builder(
-              itemCount: _tasks.length,
-              itemBuilder: (context, index) {
-                final task = _tasks[index];
-                return ListTile(
-                  title: Text(task.name),
-                  subtitle: Text(task.description),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      widget.viewModel.add(DeleteTaskEvent(task.id));
-                    },
-                  ),
-                );
-              },
-            ),
-            Positioned(
-              bottom: 16,
-              right: 16,
-              child: FloatingActionButton(
-                elevation: 0,
-                onPressed: () async {
-                  final result = await context.push<Map<String, dynamic>>(Routes.createTask);
-                  if (result != null) widget.viewModel.add(AddTaskEvent(result));
+        body: SafeArea(
+          child: Stack(
+            children: [
+              _tasks.isEmpty
+              ? const Center(child: Text("No tasks"))
+              : ListView.builder(
+                itemCount: _tasks.length,
+                itemBuilder: (context, index) {
+                  final task = _tasks[index];
+                  return ListTile(
+                    title: Text(task.name),
+                    subtitle: Text(task.description),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        widget.viewModel.add(DeleteTaskEvent(task.id));
+                      },
+                    ),
+                  );
                 },
-                child: const Icon(Icons.add),
+              ),
+              Positioned(
+                bottom: 16,
+                right: 16,
+                child: FloatingActionButton(
+                  elevation: 0,
+                  onPressed: () async {
+                    final result = await context.push<Map<String, dynamic>>(Routes.createTask);
+                    if (result != null) widget.viewModel.add(AddTaskEvent(result));
+                  },
+                  child: const Icon(Icons.add),
+                )
               )
-            )
-          ],
+            ],
+          ),
         )
       )
     );

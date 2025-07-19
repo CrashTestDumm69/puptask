@@ -24,16 +24,17 @@ extension ThemeDisplayNameExtension on ThemeType {
 
 class Settings extends HiveObject {
   ThemeType theme;
+  bool isOnboarded;
 
   Settings({
     required this.theme,
+    required this.isOnboarded
   });
 
-  Settings copyWith({
-    ThemeType? theme,
-  }) {
+  Settings copyWith({ThemeType? theme, bool? isOnboarded}) {
     return Settings(
       theme: theme ?? this.theme,
+      isOnboarded: isOnboarded ?? this.isOnboarded
     );
   }
 }

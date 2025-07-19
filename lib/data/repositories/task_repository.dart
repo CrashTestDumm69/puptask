@@ -1,5 +1,5 @@
 import 'package:puptask/data/services/task_storage_service.dart';
-import 'package:puptask/domain/models/task.dart';
+import 'package:puptask/domain/models/task/task.dart';
 
 class TaskRepository {
   final TaskStorageService _taskStorageService;
