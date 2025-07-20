@@ -51,9 +51,11 @@ types:
         index: 3
   Settings:
     typeId: 3
-    nextIndex: 2
+    nextIndex: 3
     fields:
       theme:
         index: 0
       isOnboarded:
         index: 1
+      isOffline:
+        index: 2

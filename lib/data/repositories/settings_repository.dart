@@ -6,10 +6,9 @@ import 'package:puptask/domain/models/settings.dart';
 class SettingsRepository {
   final SettingsStorageService _storageService;
   final StreamController<ThemeType> _themeStreamController = StreamController<ThemeType>.broadcast();
-  
-  SettingsRepository({
-    required SettingsStorageService storageService
-  }) : _storageService = storageService;
+
+  SettingsRepository({required SettingsStorageService storageService})
+    : _storageService = storageService;
 
   Stream<ThemeType> get themeStream => _themeStreamController.stream;
   ThemeType get currentTheme => _storageService.settings.theme;
@@ -38,7 +37,9 @@ class SettingsRepository {
   Future<void> onboardedApp() async {
     try {
       final settings = _storageService.settings;
-      await _storageService.updateSettings(settings.copyWith(isOnboarded: true));
+      await _storageService.updateSettings(
+        settings.copyWith(isOnboarded: true),
+      );
     } catch (e) {
       rethrow;
     }

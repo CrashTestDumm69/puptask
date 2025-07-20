@@ -21,7 +21,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
 
   final List<String> weekDays = [
     'Monday',
-    'Tuesday', 
+    'Tuesday',
     'Wednesday',
     'Thursday',
     'Friday',
@@ -45,7 +45,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
         );
         return;
       }
-      
+
       if (!isRepeat && selectedDate == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Please select a due date')),
@@ -107,32 +107,34 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
         children: [
           Text(
             'Select days:',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: weekDays.map((day) {
-              final isSelected = selectedWeekdays.contains(day);
-              return FilterChip(
-                label: Text(day.substring(0, 3)),
-                selected: isSelected,
-                onSelected: (selected) {
-                  setState(() {
-                    if (selected) {
-                      selectedWeekdays.add(day);
-                    } else {
-                      selectedWeekdays.remove(day);
-                    }
-                  });
-                },
-                selectedColor: Theme.of(context).colorScheme.primaryContainer,
-                checkmarkColor: Theme.of(context).colorScheme.primary,
-              );
-            }).toList(),
+            children:
+                weekDays.map((day) {
+                  final isSelected = selectedWeekdays.contains(day);
+                  return FilterChip(
+                    label: Text(day.substring(0, 3)),
+                    selected: isSelected,
+                    onSelected: (selected) {
+                      setState(() {
+                        if (selected) {
+                          selectedWeekdays.add(day);
+                        } else {
+                          selectedWeekdays.remove(day);
+                        }
+                      });
+                    },
+                    selectedColor:
+                        Theme.of(context).colorScheme.primaryContainer,
+                    checkmarkColor: Theme.of(context).colorScheme.primary,
+                  );
+                }).toList(),
           ),
         ],
       ),
@@ -147,9 +149,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
         children: [
           Text(
             'Due date:',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
           InkWell(
@@ -158,7 +160,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
               decoration: BoxDecoration(
-                border: Border.all(color: Theme.of(context).colorScheme.outline),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outline,
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -239,40 +243,40 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Date/Weekday selection
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               transitionBuilder: (Widget child, Animation<double> animation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
+                return FadeTransition(opacity: animation, child: child);
               },
-              child: isRepeat 
-                ? _buildWeekdaySelector() 
-                : _buildDateSelector(),
+              child: isRepeat ? _buildWeekdaySelector() : _buildDateSelector(),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Reminder time
             Text(
               'Reminder time:',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 8),
             InkWell(
               onTap: _selectReminderTime,
               borderRadius: BorderRadius.circular(12),
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 12,
+                ),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Theme.of(context).colorScheme.outline),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -301,10 +305,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Task'),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: const Text('Create Task'), elevation: 0),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -334,9 +335,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 },
                 textInputAction: TextInputAction.next,
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Description field
               TextFormField(
                 controller: _descriptionController,
@@ -361,14 +362,14 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 },
                 textInputAction: TextInputAction.done,
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Schedule section
               _buildDateTimeSection(),
-              
+
               const SizedBox(height: 32),
-              
+
               // Action buttons
               Row(
                 children: [

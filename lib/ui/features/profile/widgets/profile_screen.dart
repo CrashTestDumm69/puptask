@@ -43,17 +43,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         appBar: AppBar(title: const Text('Login')),
         body: SafeArea(
-          child: !_isProfileAvailable
-            ? Icon(Icons.call_missed_outgoing)
-            : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Email: $_email'),
-              const Text('Password'),
-            ],
-          ),
+          child:
+              !_isProfileAvailable
+                  ? Icon(Icons.call_missed_outgoing)
+                  : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text('Email: $_email'), const Text('Password')],
+                  ),
         ),
-      )
+      ),
     );
   }
 }

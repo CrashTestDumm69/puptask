@@ -9,15 +9,15 @@ part 'puptask_event.dart';
 class PuptaskViewModel extends Bloc<PuptaskEvent, PuptaskState> {
   final SettingsRepository _settingsRepository;
 
-  PuptaskViewModel({
-    required SettingsRepository settingsRepository
-  }) : _settingsRepository = settingsRepository,
-       super(PuptaskInitialState(theme: settingsRepository.currentTheme)) {
-    
+  PuptaskViewModel({required SettingsRepository settingsRepository})
+    : _settingsRepository = settingsRepository,
+      super(PuptaskInitialState(theme: settingsRepository.currentTheme)) {
     on<ThemeChanged>((event, emit) {
       emit(PuptaskThemeChange(theme: event.theme));
     });
 
-    _settingsRepository.themeStream.listen((theme) => add(ThemeChanged(theme: theme)));
+    _settingsRepository.themeStream.listen(
+      (theme) => add(ThemeChanged(theme: theme)),
+    );
   }
 }

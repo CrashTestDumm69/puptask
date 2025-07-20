@@ -12,16 +12,14 @@ import 'package:puptask/utils/injection_container.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final path = await getApplicationSupportDirectory();
   Hive
     ..init("${path.path}/boxes")
     ..registerAdapters();
-  
+
   await setUpServices();
-  
+
   runApp(PuptaskApp(viewModel: sl()));
 }

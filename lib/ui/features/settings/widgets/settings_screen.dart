@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:puptask/routing/router.dart';
 
+import 'package:puptask/routing/router.dart';
 import 'package:puptask/ui/features/settings/view_model/settings_view_model.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   String _theme = 'System';
-  
+
   @override
   void initState() {
     super.initState();
@@ -33,10 +33,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       bloc: widget.viewModel,
       listener: (context, state) {
         if (state is SettingsErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
-
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is SettingsLoadedState) {
           setState(() {
             _theme = state.theme;
@@ -44,9 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Settings Screen'),
-        ),
+        appBar: AppBar(title: const Text('Settings Screen')),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,17 +60,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   proportionalWidth: true,
                   groupValue: _theme,
                   children: Map<String, Widget>.fromEntries(
-                    widget.viewModel.themes.map((theme) => MapEntry(theme, Text(theme)))
+                    widget.viewModel.themes.map(
+                      (theme) => MapEntry(theme, Text(theme)),
+                    ),
                   ),
                   onValueChanged: (theme) {
                     if (theme != null) widget.viewModel.add(ChangeThemeEvent(value: theme));
-                  }
-                )
-              )
+                  },
+                ),
+              ),
             ],
           ),
-        )
-      )
+        ),
+      ),
     );
   }
 }

@@ -8,10 +8,9 @@ part 'profile_state.dart';
 
 class ProfileViewModel extends Bloc<ProfileEvent, ProfileState> {
   final AuthRepository _authRepository;
-  ProfileViewModel({
-    required AuthRepository authRepository
-  }) : _authRepository = authRepository,
-       super(ProfileInitial()) {
+  ProfileViewModel({required AuthRepository authRepository})
+    : _authRepository = authRepository,
+      super(ProfileInitial()) {
     on<LoadProfileEvent>(_loadProfile);
   }
 

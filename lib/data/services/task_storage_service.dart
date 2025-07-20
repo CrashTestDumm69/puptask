@@ -32,11 +32,15 @@ class TaskStorageService {
     final id = const Uuid().v4();
 
     await _taskBox.put(id, task);
-    
+
     _tasks = _getTasks();
   }
 
-  Future<void> updateTask(String id, {String? name, String? description}) async {
+  Future<void> updateTask(
+    String id, {
+    String? name,
+    String? description,
+  }) async {
     try {
       final task = _findTask(id);
       task.name = name ?? task.name;
@@ -53,7 +57,6 @@ class TaskStorageService {
     try {
       final task = _findTask(id);
       await task.delete();
-      
       _tasks = _getTasks();
     } catch (e) {
       rethrow;

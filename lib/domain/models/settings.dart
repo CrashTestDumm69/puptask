@@ -1,11 +1,6 @@
 import 'package:hive_ce/hive.dart';
 
-enum ThemeType {
-  system,
-  light,
-  dark,
-  midnight
-}
+enum ThemeType { system, light, dark, midnight }
 
 extension ThemeDisplayNameExtension on ThemeType {
   String get displayName {
@@ -25,16 +20,19 @@ extension ThemeDisplayNameExtension on ThemeType {
 class Settings extends HiveObject {
   ThemeType theme;
   bool isOnboarded;
+  bool isOffline;
 
   Settings({
     required this.theme,
-    required this.isOnboarded
+    required this.isOnboarded,
+    required this.isOffline,
   });
 
-  Settings copyWith({ThemeType? theme, bool? isOnboarded}) {
+  Settings copyWith({ThemeType? theme, bool? isOnboarded, bool? isOffline}) {
     return Settings(
       theme: theme ?? this.theme,
-      isOnboarded: isOnboarded ?? this.isOnboarded
+      isOnboarded: isOnboarded ?? this.isOnboarded,
+      isOffline: isOffline ?? this.isOffline,
     );
   }
 }

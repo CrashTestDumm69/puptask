@@ -170,17 +170,20 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     return Settings(
       theme: fields[0] as ThemeType,
       isOnboarded: fields[1] as bool,
+      isOffline: fields[2] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.theme)
       ..writeByte(1)
-      ..write(obj.isOnboarded);
+      ..write(obj.isOnboarded)
+      ..writeByte(2)
+      ..write(obj.isOffline);
   }
 
   @override

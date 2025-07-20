@@ -3,15 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'task.g.dart';
 
-enum Days {
-  monday,
-  tuesday,
-  wednesday,
-  thursday,
-  friday,
-  saturday,
-  sunday
-}
+enum Days { monday, tuesday, wednesday, thursday, friday, saturday, sunday }
 
 @JsonSerializable()
 class Task extends HiveObject {
@@ -28,7 +20,7 @@ class Task extends HiveObject {
     required this.completed,
     this.repeatDays,
     this.reminderTime,
-    this.dueDate
+    this.dueDate,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

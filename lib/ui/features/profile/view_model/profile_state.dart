@@ -9,7 +9,5 @@ class ProfileUnavailable extends ProfileState {}
 class ProfileLoaded extends ProfileState {
   final User user;
 
-  ProfileLoaded({
-    required this.user
-  });
+  ProfileLoaded({required this.user});
 }

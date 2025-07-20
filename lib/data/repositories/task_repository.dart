@@ -6,9 +6,8 @@ class TaskRepository {
 
   List<Task> get tasks => _taskStorageService.tasks;
 
-  TaskRepository({
-    required TaskStorageService taskStorageService,
-  }) : _taskStorageService = taskStorageService;
+  TaskRepository({required TaskStorageService taskStorageService})
+    : _taskStorageService = taskStorageService;
 
   Future<void> init() async {
     try {
@@ -26,7 +25,11 @@ class TaskRepository {
     }
   }
 
-  Future<void> updateTask(String id, {String? name, String? description}) async {
+  Future<void> updateTask(
+    String id, {
+    String? name,
+    String? description,
+  }) async {
     try {
       await _taskStorageService.updateTask(
         id,

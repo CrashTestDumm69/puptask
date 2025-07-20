@@ -12,8 +12,8 @@ class SettingsViewModel extends Bloc<SettingsEvent, SettingsState> {
   ThemeType get currentTheme => _settingsRepository.currentTheme;
 
   SettingsViewModel({required SettingsRepository settingsRepository})
-      : _settingsRepository = settingsRepository,
-        super(SettingsInitialState()) {
+    : _settingsRepository = settingsRepository,
+      super(SettingsInitialState()) {
     on<LoadSettingsEvent>((event, emit) {
       emit(SettingsLoadedState(theme: currentTheme.displayName));
     });
@@ -27,9 +27,12 @@ class SettingsViewModel extends Bloc<SettingsEvent, SettingsState> {
         await _settingsRepository.changeTheme(selectedTheme);
         emit(SettingsLoadedState(theme: currentTheme.displayName));
       } catch (e) {
-        emit(SettingsErrorState(message: "Failed to update setting: ${e.toString()}"));
+        emit(
+          SettingsErrorState(
+            message: "Failed to update setting: ${e.toString()}",
+          ),
+        );
       }
     });
   }
-  
 }

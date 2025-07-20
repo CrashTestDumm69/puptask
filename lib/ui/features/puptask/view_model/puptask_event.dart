@@ -5,7 +5,5 @@ abstract class PuptaskEvent {}
 class ThemeChanged extends PuptaskEvent {
   ThemeType theme;
 
-  ThemeChanged({
-    required this.theme
-  });
+  ThemeChanged({required this.theme});
 }

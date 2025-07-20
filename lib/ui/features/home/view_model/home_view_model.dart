@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:puptask/data/repositories/task_repository.dart';
 import 'package:puptask/domain/models/task/task.dart';
 
@@ -28,10 +29,9 @@ class TaskDisplay {
 class HomeViewModel extends Bloc<HomeEvent, HomeState> {
   final TaskRepository _taskRepository;
 
-  HomeViewModel({
-    required TaskRepository taskRepository,
-  }) : _taskRepository = taskRepository,
-       super(HomeInitialState()) {
+  HomeViewModel({required TaskRepository taskRepository})
+    : _taskRepository = taskRepository,
+      super(HomeInitialState()) {
     on<AddTaskEvent>((event, emit) async {
       try {
         await _taskRepository.addTask(Task.fromJson(event.taskDetails));
@@ -42,7 +42,6 @@ class HomeViewModel extends Bloc<HomeEvent, HomeState> {
         emit(HomeErrorState("Failed to add task: ${e.toString()}"));
         return;
       }
-      
     });
 
     on<LoadTasksEvent>((event, emit) {

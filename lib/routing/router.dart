@@ -18,31 +18,27 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.home,
-      builder: (BuildContext context, GoRouterState state) {
-        return HomeScreen(viewModel: sl());
-      },
+      builder: (context, state) => HomeScreen(viewModel: sl())
     ),
     GoRoute(
       path: Routes.settings,
-      builder: (BuildContext context, GoRouterState state) {
-        return SettingsScreen(viewModel: sl());
-      },
+      builder: (context, state) => SettingsScreen(viewModel: sl())
     ),
     GoRoute(
       path: Routes.createTask,
-      builder: (context, state) => CreateTaskPage()
+      builder: (context, state) => CreateTaskPage(),
     ),
     GoRoute(
       path: Routes.onboarding,
-      builder: (context, state) => OnboardingScreen()
+      builder: (context, state) => OnboardingScreen(viewModel: sl()),
     ),
     GoRoute(
       path: Routes.auth,
-      builder: (context, state) => AuthScreen(viewModel: sl())
+      builder: (context, state) => AuthScreen(viewModel: sl()),
     ),
     GoRoute(
       path: Routes.profile,
       builder: (context, state) => ProfileScreen(viewModel: sl()),
-    )
+    ),
   ],
 );

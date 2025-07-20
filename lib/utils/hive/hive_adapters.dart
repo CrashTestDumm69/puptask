@@ -7,6 +7,6 @@ import 'package:puptask/domain/models/task/task.dart';
   AdapterSpec<Days>(),
   AdapterSpec<Task>(),
   AdapterSpec<ThemeType>(),
-  AdapterSpec<Settings>()
+  AdapterSpec<Settings>(),
 ])
 part 'hive_adapters.g.dart';
